@@ -7,7 +7,6 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - IMAGE_NAME=rsiva
       - REPOSITORY_URI=236642951560.dkr.ecr.us-east-1.amazonaws.com/rsiva
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
@@ -17,7 +16,7 @@ phases:
       - docker image rm -f $IMAGE_NAME
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $IMAGE_NAME .
+      - docker build -t $REPOSITORY_URI:latest .
       - docker tag $IMAGE_NAME:latest $REPOSITORY_URI:latest
   post_build:
     commands:
