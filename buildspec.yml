@@ -13,6 +13,8 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
+      - echo deleting existing the Docker image...
+      - docker image rm -f $IMAGE_NAME
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $IMAGE_NAME .
