@@ -13,7 +13,6 @@ phases:
   build:
     commands:
       - echo deleting existing the Docker image...
-      - docker image rm -f $IMAGE_NAME
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
